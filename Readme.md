@@ -52,15 +52,21 @@ I used Tailwind’s grid and flex utilities to handle responsiveness.
 Connecting React with MongoDB via Express was confusing at first.
 Using CORS and environment variables helped me fix the issues.
 
+5. Latest UI/UX Fix
+
+- Problem: When the server was slow, users didn't know if their click worked and often pressed the button multiple times.
+
+- Solution: Added a "Sending..." loading state that disables the button until the process is finished. This prevents double-booking and makes the app feel more responsive.
+
 # 🤝 Help & Learning:
 
-# I used:
+## I used:
 
 - Official documentation (React, Tailwind, Node.js)
 - Online resources and tutorials
 - AI tools for debugging and understanding errors
 
-# 👉 I tried to understand the solutions instead of just copying them.
+## 👉 I tried to understand the solutions instead of just copying them.
 
 # 🔮 Future Improvements:
 
@@ -71,7 +77,7 @@ Using CORS and environment variables helped me fix the issues.
 
 # 🛠️ How to Run Locally:
 
-# Backend:
+## Backend:
 
 - cd server
 - npm install
@@ -79,9 +85,9 @@ Using CORS and environment variables helped me fix the issues.
 - MONGO_URI=your_mongodb_uri
   PORT=5000
 
-# Run: node server.js
+### Run: node server.js
 
-# Frontend:
+## Frontend:
 
 - cd client
 - npm install
