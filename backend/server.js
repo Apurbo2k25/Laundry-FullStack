@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 require("dotenv").config();
-const { sendOrderEmail } = require("./utils/emailService");
+const sendEmail = require("./utils/emailService.js");
 
 const app = express();
 
@@ -33,7 +33,7 @@ app.post("/api/bookings", async (req, res) => {
     await newBooking.save();
 
     // Call extracted email service
-    await sendOrderEmail(req.body);
+    await sendEmail(req.body);
 
     res.status(201).json({ message: "Booking saved and detailed email sent!" });
   } catch (error) {
