@@ -9,7 +9,6 @@ const sendEmail = async (data) => {
     },
   });
 
-  // Basic way to list items
   let itemList = "";
   for (let i = 0; i < data.items.length; i++) {
     itemList += "- " + data.items[i].name + "\n";

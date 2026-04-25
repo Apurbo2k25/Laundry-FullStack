@@ -36,11 +36,12 @@ Since this was my second full-stack project, I focused on understanding how the 
 At first, all selected items were lost after refreshing the page.
 I solved this by learning and using localStorage to persist the cart.
 
-2. EmailJS 422 Error
+2. Switching to Nodemailer
+   Issue: Moved from frontend EmailJS to a more robust backend solution.
 
-The email was not sending initially.
-After checking the Network tab in DevTools and debugging with some guidance, I realized the variable names in my code didn’t match the EmailJS template.
-Fixing the names solved the issue.
+Solution: Integrated Nodemailer in a separate emailService.js file.
+
+Improvement: The system now loops through the items array to send a detailed order summary (names and prices) directly to the user.
 
 3. Making the UI responsive
 
