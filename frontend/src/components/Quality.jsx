@@ -4,6 +4,8 @@ import deliveryImg from "../assets/delivery.png";
 import priceImg from "../assets/price.png";
 
 function Quality() {
+  // Iused an array of objects to store the data and mapped through it to keep the code DRY
+  // (Don't Repeat Yourself). This approach makes the UI scalable and professional.
   const qualities = [
     {
       title: "Premium Service",
@@ -30,6 +32,7 @@ function Quality() {
   return (
     <section className="p-6 md:p-16 bg-gray-50 text-center">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        {/* // Rendering components dynamically using */}
         {qualities.map((item, index) => (
           <div
             key={index}

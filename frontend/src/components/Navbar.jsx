@@ -13,22 +13,24 @@ const Navbar = ({ onServicesClick }) => {
           className="relative group cursor-pointer"
         >
           Home
-          <span className="absolute  w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+          <span className="absolute left-0 bottom-[-4px] w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
         </li>
+
         <li onClick={onServicesClick} className="relative group cursor-pointer">
           Services
-          <span className="absolute lw-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+          <span className="absolute left-0 bottom-[-4px] w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
         </li>
+
         <li className="relative group cursor-pointer">
           About Us
-          <span className="absolute  w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+          <span className="absolute left-0 bottom-[-4px] w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
         </li>
+
         <li className="relative group cursor-pointer">
           Contact Us
-          <span className="absolute  w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
+          <span className="absolute left-0 bottom-[-4px] w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full"></span>
         </li>
       </ul>
-
       <button
         className="bg-blue-500 text-white font-semibold 
          py-2 px-3 text-xs rounded mr-2 

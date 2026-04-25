@@ -11,7 +11,7 @@ const Footer = () => (
       <div>
         <h3 className="font-bold mb-4">About us</h3>
         <p className="text-sm font-normal">
-          Laundrymark provides professional, eco-friendly garment care with
+          LaundryMaster provides professional, eco-friendly garment care with
           door-to-door convenience.
         </p>
       </div>
