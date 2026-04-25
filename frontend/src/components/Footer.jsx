@@ -60,7 +60,7 @@ const Footer = () => (
     </div>
 
     <div className="mt-10 pt-5 border-t border-gray-300 text-center text-sm font-normal">
-      <p>© 2026 Laundrymark. All rights reserved.</p>
+      <p>© 2026 LaundryMaster. All rights reserved.</p>{" "}
     </div>
   </footer>
 );
