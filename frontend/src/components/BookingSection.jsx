@@ -50,11 +50,14 @@ const BookingSection = () => {
     if (cart.length === 0) return alert("Add items first!");
     // Used post method for sending booking data to backend API
     try {
-      await axios.post("http://localhost:5000/api/bookings", {
-        ...formData,
-        items: cart,
-        totalPrice: total,
-      });
+      await axios.post(
+        "https://laundry-fullstack-rwe6.onrender.com/api/bookings",
+        {
+          ...formData,
+          items: cart,
+          totalPrice: total,
+        },
+      );
 
       //Used Email.js to send email to the users
       await emailjs.send(
