@@ -75,23 +75,29 @@ Using CORS and environment variables helped me fix the issues.
 - Online payment integration
 - Better UI/UX and animations
 
-# 🛠️ How to Run Locally:
+# 🛠️ How to Run Locally
 
 ## Backend:
 
-- cd server
-- npm install
-- Create a .env file:
-- MONGO_URI=your_mongodb_uri
-  PORT=5000
+- cd backend
 
-### Run: node server.js
+- npm install
+
+- Create .env with: MONGO_URI=your_uri & PORT=5000
+
+- npm run dev
 
 ## Frontend:
 
-- cd client
+- Open a new terminal
+
+- cd frontend
+
 - npm install
+
 - npm run dev
+
+### Note: Keep both terminals running!
 
 # 🧾 Final Note:
 
