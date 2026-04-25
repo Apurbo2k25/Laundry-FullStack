@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import emailjs from "@emailjs/browser";
 import { AlertCircle } from "lucide-react";
 import infoIcon from "../assets/info.png";
 
-// list of all available laundry services with id, name, and price
 const servicesList = [
   { id: 1, name: "🧺 Wash & Fold", price: 100 },
   { id: 2, name: "👕 Dry Cleaning", price: 200 },
@@ -15,20 +14,28 @@ const servicesList = [
 ];
 
 const BookingSection = () => {
-  // cart state initialized from localStorage (to persist data after refresh)
   const [cart, setCart] = useState(() => {
     const savedCart = localStorage.getItem("laundryCart");
     return savedCart ? JSON.parse(savedCart) : [];
   });
   const [formData, setFormData] = useState({ name: "", email: "", phone: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  // saves cart data to localStorage whenever cart changes
   useEffect(() => {
     localStorage.setItem("laundryCart", JSON.stringify(cart));
   }, [cart]);
 
-  // Calculate total using forEach
+  // Auto-hide success message after 5 seconds
+  useEffect(() => {
+    if (submitted) {
+      const timer = setTimeout(() => {
+        setSubmitted(false);
+      }, 5000);
+      return () => clearTimeout(timer);
+    }
+  }, [submitted]);
+
   let total = 0;
   cart.forEach((item) => {
     total = total + item.price;
@@ -40,15 +47,14 @@ const BookingSection = () => {
   };
 
   const removeFromCart = (serviceId) => {
-    // Filter out the item with the matching ID
     setCart(cart.filter((item) => item.id !== serviceId));
   };
 
   const handleBooking = async (e) => {
     e.preventDefault();
-
     if (cart.length === 0) return alert("Add items first!");
-    // Used post method for sending booking data to backend API
+
+    setIsLoading(true);
     try {
       await axios.post(
         "https://laundry-fullstack-rwe6.onrender.com/api/bookings",
@@ -59,7 +65,6 @@ const BookingSection = () => {
         },
       );
 
-      //Used Email.js to send email to the users
       await emailjs.send(
         "service_7ox7w78",
         "template_i7pz2gq",
@@ -78,20 +83,19 @@ const BookingSection = () => {
     } catch (err) {
       console.error("Booking Error:", err);
       alert("Something went wrong. Check if backend is running.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <section className="flex flex-col md:flex-row p-5 gap-5 bg-[#EEEEEE]">
-      {/* LEFT DIV: SERVICE SELECTION (*/}
+      {/* LEFT DIV: SERVICE SELECTION */}
       <div className="md:w-1/2 bg-white p-8 rounded-2xl shadow-sm">
         <h2 className="text-2xl font-bold mb-2 border-b pb-2">Our Services</h2>
         <div className="space-y-4">
-          {/* // loop through each service to display in UI */}
           {servicesList.map((s) => {
-            // Check if the service is already in the cart
             const isInCart = cart.some((item) => item.id === s.id);
-
             return (
               <div
                 key={s.id}
@@ -100,10 +104,8 @@ const BookingSection = () => {
                 <span className="font-semibold text-gray-700">
                   {s.name} - ₹{s.price}
                 </span>
-
                 <div>
                   {isInCart ? (
-                    /* Show ONLY Remove button if item is in cart */
                     <button
                       onClick={() => removeFromCart(s.id)}
                       className="bg-red-500 text-white px-4 py-1.5 rounded font-bold text-sm hover:bg-red-600 transition"
@@ -111,7 +113,6 @@ const BookingSection = () => {
                       Remove Now
                     </button>
                   ) : (
-                    /* Show ONLY Add button if item is NOT in cart */
                     <button
                       onClick={() => addToCart(s)}
                       className="bg-blue-600 text-white px-4 py-1.5 rounded font-bold text-sm hover:bg-blue-500 transition"
@@ -124,10 +125,7 @@ const BookingSection = () => {
             );
           })}
         </div>
-        <div
-          className="mt-10 flex items-center justify-center gap-2 text-blue-600
-         bg-blue-50 p-3 rounded-lg"
-        >
+        <div className="mt-10 flex items-center justify-center gap-2 text-blue-600 bg-blue-50 p-3 rounded-lg">
           <p className="text-sm font-medium">
             Add items to the cart to proceed.
           </p>
@@ -135,24 +133,21 @@ const BookingSection = () => {
         </div>
       </div>
 
-      {/* RIGHT DIV: CART & BOOKING FORM (Grid Aligned) */}
+      {/* RIGHT DIV: CART & BOOKING FORM */}
       <div className="md:w-1/2 space-y-6">
         <div className="bg-white p-8 rounded-2xl shadow-sm">
           <h3 className="text-2xl font-bold border-b pb-2 ">Selected Items</h3>
-
           <div className="grid grid-cols-4 font-semibold text-gray-700 border-b pb-2">
             <span>Sl No</span>
             <span className="col-span-2">Name</span>
             <span className="text-right">Price</span>
           </div>
-          {/* // if cart is empty, show message and icon */}
           {cart.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-6 ">
               <img src={infoIcon} alt="Empty" className="w-5 h-5 mb-2" />
               <p className="text-gray-500 font-medium">No items added.</p>
             </div>
           ) : (
-            //  else show list of selected items in scrollable container
             <div className="max-h-60 overflow-y-auto pr-2">
               {cart.map((item, index) => (
                 <div
@@ -168,7 +163,6 @@ const BookingSection = () => {
               ))}
             </div>
           )}
-
           <div className="mt-6 pt-4 border-t-2 border-gray-100 font-bold text-xl text-blue-700 flex justify-between">
             <span>Total Price:</span>
             <span>₹{total}</span>
@@ -176,7 +170,6 @@ const BookingSection = () => {
         </div>
 
         {/* Booking Form */}
-
         <div className="bg-white p-10 rounded-2xl shadow-sm">
           <h3 className="text-2xl font-bold mb-6">Book Now</h3>
           <form onSubmit={handleBooking} className="space-y-4">
@@ -193,7 +186,6 @@ const BookingSection = () => {
                 }
               />
             </div>
-
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
                 <label className="font-semibold block mb-1">Email:</label>
@@ -225,9 +217,14 @@ const BookingSection = () => {
 
             <button
               type="submit"
-              className="w-full bg-green-600 text-white py-3 rounded-2xl font-bold hover:bg-green-700 shadow-lg mt-4 transition"
+              disabled={isLoading}
+              className={`w-full py-3 rounded-2xl font-bold shadow-lg mt-4 transition ${
+                isLoading
+                  ? "bg-gray-400 cursor-not-allowed text-white"
+                  : "bg-green-600 text-white hover:bg-green-700"
+              }`}
             >
-              Book Now
+              {isLoading ? "Sending... Please wait!" : "Book Now"}
             </button>
 
             {submitted && (

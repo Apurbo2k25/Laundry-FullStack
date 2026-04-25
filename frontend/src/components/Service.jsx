@@ -3,7 +3,8 @@ import React from "react";
 function Service() {
   return (
     <section className="w-full bg-blue-500 py-10 px-6">
-      <div className="max-w-6xl mx-auto flex flex-wrap justify-around items-center gap-8 text-white text-center">
+      <div className="max-w-6xl mx-auto flex flex-wrap justify-around
+       items-center gap-8 text-white text-center">
         {/* Title Container */}
         <div className="w-full lg:w-auto">
           <h2 className="text-2xl md:text-4xl font-bold">Our Achievements</h2>
